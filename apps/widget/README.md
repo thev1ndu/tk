@@ -4,12 +4,11 @@ A Next.js application that provides a customer support chat widget interface des
 
 ## Overview
 
-This module serves as the chat interface that gets loaded inside the embed widget. It provides a complete customer support experience with multiple screens including authentication, chat, voice calls, and contact forms.
+This module serves as the chat interface that gets loaded inside the embed widget. It provides a complete customer support experience with multiple screens including authentication and chat.
 
 ## Features
 
-- **Multi-screen Interface**: Loading, selection, voice, auth, inbox, chat, contact, and error screens
-- **Voice Integration**: Built-in voice calling capabilities using Vapi AI
+- **Multi-screen Interface**: Loading, selection, auth, inbox, chat, and error screens
 - **Real-time Chat**: Live chat functionality with message history
 - **Authentication**: User authentication and session management
 - **Responsive Design**: Optimized for iframe embedding
@@ -22,11 +21,9 @@ The widget includes the following screens:
 
 - **Loading**: Initial loading state while fetching organization data
 - **Selection**: Choose between different support options
-- **Voice**: Voice calling interface with Vapi AI integration
 - **Auth**: User authentication screen
 - **Inbox**: Message inbox and conversation list
 - **Chat**: Main chat interface for text-based support
-- **Contact**: Contact form for submitting support requests
 - **Error**: Error handling and display
 
 ## Development
@@ -88,12 +85,12 @@ Add the EchoWidget script to your site and initialize it:
 </script>
 ```
 
-The embed script injects an iframe with recommended permissions for voice:
+The embed script injects an iframe with recommended permissions for the widget:
 
 ```html
 <iframe
   src="http://localhost:3001?orgId=your-organization-id"
-  allow="microphone; camera; clipboard-write; autoplay"
+  allow="clipboard-write; autoplay"
   referrerpolicy="strict-origin-when-cross-origin"
   sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
 ></iframe>
@@ -112,8 +109,7 @@ modules/widget/
 │   ├── use-screen-store.ts
 │   ├── use-conversation-store.ts
 │   ├── use-contact-session-store.ts
-│   ├── use-widget-settings-store.ts
-│   └── use-vapi-secrets-store.ts
+│   └── use-widget-settings-store.ts
 ├── hooks/             # Custom hooks
 ├── types.ts           # TypeScript types and constants
 └── ui/
@@ -121,11 +117,9 @@ modules/widget/
     ├── screens/       # Screen components
     │   ├── widget-loading-screen.tsx
     │   ├── widget-selection-screen.tsx
-    │   ├── widget-voice-screen.tsx
     │   ├── widget-auth-screen.tsx
     │   ├── widget-inbox-screen.tsx
     │   ├── widget-chat-screen.tsx
-    │   ├── widget-contact-screen.tsx
     │   └── widget-error-screen.tsx
     └── views/         # View components
         └── widget-view.tsx
@@ -144,7 +138,6 @@ lib/
 - **Next.js 15**: React framework
 - **React 19**: UI library
 - **Convex**: Backend and real-time data
-- **Vapi AI**: Voice calling integration
 - **Zustand**: State management
 - **Lucide React**: Icons
 - **Sonner**: Toast notifications
@@ -162,7 +155,6 @@ lib/
 The widget uses environment variables for configuration. Make sure to set up the following:
 
 - Convex configuration (handled by `@workspace/backend`)
-- Vapi AI API keys
 - Organization-specific settings
 
 ### Convex Integration
@@ -191,7 +183,6 @@ The widget uses Zustand stores for state management:
 - **Conversation Store**: Handles chat messages and conversations
 - **Contact Session Store**: Manages contact form sessions
 - **Widget Settings Store**: Organization-specific settings
-- **Vapi Secrets Store**: Voice calling configuration
 
 ## Notes
 
@@ -199,4 +190,3 @@ The widget uses Zustand stores for state management:
 - All screens are responsive and optimized for mobile devices
 - The application uses `overflow-hidden` to prevent scrolling issues in iframe
 - Z-index and positioning are handled by the parent embed script
-- Voice calling requires proper Vapi AI configuration

@@ -29,10 +29,6 @@ export const upsert = mutation({
       suggestion1: v.optional(v.string()),
       suggestion2: v.optional(v.string()),
       suggestion3: v.optional(v.string())
-    }),
-    vapiSettings: v.object({
-      phoneNumber: v.optional(v.string()),
-      assistantId: v.optional(v.string())
     })
   },
   handler: async (ctx, args) => {
@@ -53,15 +49,13 @@ export const upsert = mutation({
     if (existingWidgetSettings) {
       await ctx.db.patch(existingWidgetSettings._id, {
         greetingMessage: args.greetingMessage,
-        defaultSuggestions: args.defaultSuggestions,
-        vapiSettings: args.vapiSettings
+        defaultSuggestions: args.defaultSuggestions
       });
     } else {
       await ctx.db.insert('widgetSettings', {
         orgId: identity.orgId as string,
         greetingMessage: args.greetingMessage,
-        defaultSuggestions: args.defaultSuggestions,
-        vapiSettings: args.vapiSettings
+        defaultSuggestions: args.defaultSuggestions
       });
     }
   }

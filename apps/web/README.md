@@ -42,12 +42,6 @@ This is the primary web application that serves as the control center for the Ec
 - **Code Snippets**: Pre-configured code snippets for different platforms
 - **API Integration**: RESTful API for custom integrations
 
-### 🎤 Voice Assistant
-
-- **Vapi AI Integration**: Voice calling capabilities
-- **Voice Configuration**: Set up voice assistant settings
-- **Call Management**: Handle voice calls and recordings
-
 ### 💳 Plans & Billing
 
 - **Subscription Management**: Handle different subscription plans
@@ -98,7 +92,6 @@ app/
 │   ├── files/          # Knowledge base
 │   ├── customization/  # Widget customization
 │   ├── integrations/   # Platform integrations
-│   ├── plugins/        # Voice assistant & plugins
 │   └── billing/        # Plans & billing
 ├── api/                # API routes
 ├── layout.tsx          # Root layout
@@ -127,9 +120,6 @@ modules/
 ├── integrations/      # Platform integrations
 │   ├── constants.ts
 │   ├── utils.ts
-│   └── ui/
-├── plugins/           # Voice assistant & plugins
-│   ├── hooks/
 │   └── ui/
 └── billing/           # Plans & billing
     └── ui/
@@ -160,7 +150,6 @@ lib/
 
 - **Widget Customization**: Customize widget appearance and behavior
 - **Integrations**: Configure platform integrations
-- **Voice Assistant**: Set up voice calling capabilities
 
 ### Account
 
@@ -189,7 +178,6 @@ lib/
 ### Integration Dependencies
 
 - **@convex-dev/agent**: AI agent capabilities
-- **@vapi-ai/web**: Voice calling integration
 - **react-hook-form**: Form handling
 - **zod**: Schema validation
 - **date-fns**: Date utilities
@@ -203,7 +191,6 @@ The CMS requires the following environment variables:
 - **Clerk Configuration**: Authentication settings
 - **Convex Configuration**: Backend connection
 - **Sentry Configuration**: Error monitoring
-- **Vapi AI Configuration**: Voice calling setup
 
 ### Sentry Integration
 

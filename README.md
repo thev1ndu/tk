@@ -1,6 +1,6 @@
 # Next SAAS AI Support Platform
 
-A comprehensive customer support platform built with AI-powered chat widgets, voice calling, and knowledge base management. Built as a Turbo monorepo with Next.js 15, Convex, and modern web technologies.
+A comprehensive customer support platform built with AI-powered chat widgets and knowledge base management. Built as a Turbo monorepo with Next.js 15, Convex, and modern web technologies.
 
 ## 🌐 Live Demos
 
@@ -12,7 +12,6 @@ A comprehensive customer support platform built with AI-powered chat widgets, vo
 Next SAAS AI Support Platform is a complete SaaS solution for customer support that includes:
 
 - **AI-Powered Chat Widgets**: Intelligent customer support with RAG (Retrieval-Augmented Generation)
-- **Voice Calling**: Voice assistant integration with Vapi AI
 - **Knowledge Base Management**: Document processing for API's Knowledge
 - **Multi-Platform Integration**: Easy embedding for HTML, React, Next.js, and JavaScript
 - **Real-time Dashboard**: Comprehensive CMS for managing support operations
@@ -49,7 +48,6 @@ The main Content Management System for managing customer support operations.
 - 📚 Knowledge base management
 - 🎨 Widget customization
 - 🔌 Platform integrations
-- 🎤 Voice assistant configuration
 - 💳 Plans & billing management
 
 **Tech Stack:** Next.js 15, React 19, Clerk, Convex, Zustand
@@ -60,12 +58,11 @@ The chat interface that gets embedded as an iframe in customer websites.
 
 **Features:**
 
-- Multi-screen interface (Loading, Selection, Voice, Auth, Inbox, Chat, Contact)
-- Voice calling with Vapi AI
+- Multi-screen interface (Loading, Selection, Auth, Inbox, Chat, Error)
 - Real-time chat functionality
 - Responsive design for iframe embedding
 
-**Tech Stack:** Next.js 15, React 19, Convex, Vapi AI, Zustand
+**Tech Stack:** Next.js 15, React 19, Convex, Zustand
 
 ### 🔗 Embed Script (`apps/embed`)
 
@@ -89,11 +86,10 @@ Convex-based backend providing real-time database and API functionality.
 - Real-time database with Convex
 - AI agent capabilities
 - RAG (Retrieval-Augmented Generation)
-- Voice calling integration
 - Authentication webhooks
 - File processing and indexing
 
-**Tech Stack:** Convex, OpenAI, Vapi AI, AWS Secrets Manager
+**Tech Stack:** Convex, OpenAI, AWS Secrets Manager
 
 ## 🛠️ Development
 
@@ -167,9 +163,6 @@ Convex-based backend providing real-time database and API functionality.
    ```env
    # Convex Configuration
    NEXT_PUBLIC_CONVEX_URL=your_convex_url
-
-   # Vapi AI Configuration
-   NEXT_PUBLIC_VAPI_API_KEY=your_vapi_api_key
    ```
 
 4. **Start development servers**
@@ -358,10 +351,6 @@ docker-compose down
 
 ![Web CMS Integrations](./github/images/web-cms-integration.png)
 
-#### Voice Assistant Configuration
-
-![Web CMS Voice Assistant](./github/images/web-cms-voice-assistant.png)
-
 #### Plans & Billing Management
 
 ![Web CMS Plans & Billing](./github/images/web-cms-plan-and-billing.png)
@@ -371,10 +360,6 @@ docker-compose down
 #### Selection Screen
 
 ![Widget Selection](./github/images/widget-embed-1.png)
-
-#### Voice Calling Interface
-
-![Widget Voice](./github/images/widget-embed-2.png)
 
 #### Authentication Interface
 
@@ -391,13 +376,6 @@ docker-compose down
 3. Make your changes
 4. Add tests if applicable
 5. Submit a pull request
-
-## 📚 References
-
-### Video Tutorials
-
-- [Build and Deploy a B2B SaaS AI Support Platform | Next.js 15, React, Convex, Turborepo, Vapi, AWS Part 1](https://www.youtube.com/watch?v=CAr02YlEJUc)
-- [Build and Deploy a B2B SaaS AI Support Platform | Next.js 15, React, Convex, Turborepo, Vapi, AWS Part 2](https://www.youtube.com/watch?v=HUfZNPzI-rw&t=37230s)
 
 ## 🆘 Support
 

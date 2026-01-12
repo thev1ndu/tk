@@ -7,7 +7,6 @@ import {
   useScreenActions,
   useScreenLoadingMessage
 } from '@/modules/widget/store/use-screen-store';
-import { useVapiSecretsActions } from '@/modules/widget/store/use-vapi-secrets-store';
 import { useWidgetSettingsActions } from '@/modules/widget/store/use-widget-settings-store';
 import { WIDGET_SCREENS } from '@/modules/widget/types';
 import { WidgetHeader } from '@/modules/widget/ui/components/widget-header';
@@ -16,14 +15,13 @@ interface WidgetLoadingScreenProps {
   orgId: string;
 }
 
-type InitStep = 'storage' | 'org' | 'session' | 'settings' | 'vapi' | 'done';
+type InitStep = 'storage' | 'org' | 'session' | 'settings' | 'done';
 
 export const WidgetLoadingScreen = ({ orgId }: WidgetLoadingScreenProps) => {
   const { setError, setScreen, setLoadingMessage, setOrgId } =
     useScreenActions();
   const loadingMessage = useScreenLoadingMessage();
   const { setSettings } = useWidgetSettingsActions();
-  const { setPublicKey } = useVapiSecretsActions();
   const contactSessionId = useContactSessionId();
 
   const [step, setStep] = useState<InitStep>('org');
@@ -41,7 +39,6 @@ export const WidgetLoadingScreen = ({ orgId }: WidgetLoadingScreenProps) => {
         }
       : 'skip'
   );
-  const getVAPISecrets = useAction(api.public.secrets.getVAPISecrets);
 
   // Step 1: Validate organization, set orgId
   useEffect(() => {
@@ -112,36 +109,9 @@ export const WidgetLoadingScreen = ({ orgId }: WidgetLoadingScreenProps) => {
 
     if (widgetSettings !== undefined) {
       setSettings(widgetSettings);
-      setStep('vapi');
+      setStep('done');
     }
   }, [step, widgetSettings]);
-
-  // Step 4: Get VAPI secrets
-  useEffect(() => {
-    if (step !== 'vapi') return;
-
-    if (!orgId) {
-      setError('No organization ID found');
-      setScreen(WIDGET_SCREENS.ERROR);
-      return;
-    }
-
-    setLoadingMessage('Loading VAPI settings...');
-
-    getVAPISecrets({ orgId })
-      .then((res) => {
-        if (res?.publicKey) {
-          setPublicKey(res.publicKey);
-        }
-      })
-      .catch((err) => {
-        console.error('Error loading VAPI settings', err);
-        setPublicKey(null);
-      })
-      .finally(() => {
-        setStep('done');
-      });
-  }, [step, orgId]);
 
   // Step 4: Done
   useEffect(() => {
