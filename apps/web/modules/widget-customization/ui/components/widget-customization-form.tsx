@@ -1,6 +1,5 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { useMutation, useQuery } from 'convex/react';
@@ -29,7 +28,6 @@ import { Skeleton } from '@workspace/ui/components/skeleton';
 import { Textarea } from '@workspace/ui/components/textarea';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Loader2Icon } from 'lucide-react';
-import { VapiFormFields } from '@/modules/widget-customization/ui/components/vapi-form-fields';
 import { widgetCustomizationFormSchema } from '@/modules/widget-customization/ui/schemas';
 import { WidgetCustomizationFormSchema } from '@/modules/widget-customization/ui/types';
 
@@ -37,31 +35,20 @@ type WidgetSettings = Doc<'widgetSettings'>;
 
 export const WidgetCustomization = () => {
   const widgetSettings = useQuery(api.private.widgetSettings.getOne);
-  const vapiPlugin = useQuery(api.private.plugins.getOne, {
-    service: 'vapi'
-  });
 
-  const isLoadingData =
-    widgetSettings === undefined || vapiPlugin === undefined;
+  const isLoadingData = widgetSettings === undefined;
 
   if (isLoadingData) {
     return <WidgetCustomizationFormSkeleton />;
   }
 
-  return (
-    <WidgetCustomizationForm
-      initialValues={widgetSettings}
-      hasVapiPlugin={!!vapiPlugin}
-    />
-  );
+  return <WidgetCustomizationForm initialValues={widgetSettings} />;
 };
 
 export const WidgetCustomizationForm = ({
-  initialValues,
-  hasVapiPlugin
+  initialValues
 }: {
   initialValues: WidgetSettings | null;
-  hasVapiPlugin: boolean;
 }) => {
   const upsertSettings = useMutation(api.private.widgetSettings.upsert);
 
@@ -80,31 +67,15 @@ export const WidgetCustomizationForm = ({
         suggestion3:
           initialValues?.defaultSuggestions?.suggestion3 ||
           'I want to return my product'
-      },
-      vapiSettings: {
-        phoneNumber: initialValues?.vapiSettings?.phoneNumber || '',
-        assistantId: initialValues?.vapiSettings?.assistantId || ''
       }
     }
   });
 
   const onSubmit = async (data: WidgetCustomizationFormSchema) => {
     try {
-      const vapiSettings: WidgetSettings['vapiSettings'] = {
-        assistantId:
-          data.vapiSettings.assistantId === 'none'
-            ? ''
-            : data.vapiSettings.assistantId,
-        phoneNumber:
-          data.vapiSettings.phoneNumber === 'none'
-            ? ''
-            : data.vapiSettings.phoneNumber
-      };
-
       await upsertSettings({
         greetingMessage: data.greetingMessage,
-        defaultSuggestions: data.defaultSuggestions,
-        vapiSettings
+        defaultSuggestions: data.defaultSuggestions
       });
 
       toast.success('Widget settings updated successfully');
@@ -213,20 +184,6 @@ export const WidgetCustomizationForm = ({
             </CardContent>
           </Card>
 
-          {hasVapiPlugin && (
-            <Card>
-              <CardHeader>
-                <CardTitle>VAPI Settings</CardTitle>
-                <CardDescription>
-                  Configure VAPI settings for your chat widget
-                </CardDescription>
-              </CardHeader>
-              <CardContent className='space-y-4'>
-                <VapiFormFields form={form} />
-              </CardContent>
-            </Card>
-          )}
-
           <div className='flex justify-end'>
             <Button
               type='submit'
@@ -276,19 +233,6 @@ export const WidgetCustomizationFormSkeleton = () => {
               <Skeleton className='h-4 w-full rounded-md' />
               <Skeleton className='h-4 w-full rounded-md' />
             </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle>VAPI Settings</CardTitle>
-            <CardDescription>
-              Configure VAPI settings for your chat widget
-            </CardDescription>
-          </CardHeader>
-          <CardContent className='space-y-4'>
-            <Skeleton className='h-4 w-full rounded-md' />
-            <Skeleton className='h-4 w-full rounded-md' />
           </CardContent>
         </Card>
 

@@ -3,7 +3,6 @@ import {
   InboxIcon,
   LayoutDashboardIcon,
   LibraryBigIcon,
-  MicIcon,
   PaletteIcon,
   type LucideIcon
 } from 'lucide-react';
@@ -37,11 +36,6 @@ export const configurationNavItems: NavItem[] = [
     title: 'Integrations',
     url: '/integrations',
     icon: LayoutDashboardIcon
-  },
-  {
-    title: 'Voice Assistant',
-    url: '/plugins/vapi',
-    icon: MicIcon
   }
 ];
 
